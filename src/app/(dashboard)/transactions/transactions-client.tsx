@@ -145,7 +145,7 @@ export default function TransactionsClient({ transactions: initialTransactions }
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Transações</h1>
+          <h1 className="text-2xl font-bold text-foreground">Transações</h1>
           <p className="text-muted-foreground text-sm mt-0.5">
             {filtered.length} transação{filtered.length !== 1 ? 'ões' : ''} encontrada{filtered.length !== 1 ? 's' : ''}
           </p>
@@ -164,15 +164,15 @@ export default function TransactionsClient({ transactions: initialTransactions }
 
       {/* Summary mini-cards */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-xl border border-border/60 bg-white p-3 sm:p-4">
+        <div className="rounded-xl border border-border/60 bg-card p-3 sm:p-4">
           <p className="text-xs text-muted-foreground mb-0.5">Receitas</p>
           <p className="text-base sm:text-lg font-bold text-green-600">{formatCurrency(totals.receitas)}</p>
         </div>
-        <div className="rounded-xl border border-border/60 bg-white p-3 sm:p-4">
+        <div className="rounded-xl border border-border/60 bg-card p-3 sm:p-4">
           <p className="text-xs text-muted-foreground mb-0.5">Despesas</p>
           <p className="text-base sm:text-lg font-bold text-red-500">{formatCurrency(totals.despesas)}</p>
         </div>
-        <div className="rounded-xl border border-border/60 bg-white p-3 sm:p-4">
+        <div className="rounded-xl border border-border/60 bg-card p-3 sm:p-4">
           <p className="text-xs text-muted-foreground mb-0.5">Saldo</p>
           <p className={`text-base sm:text-lg font-bold ${totals.saldo >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
             {formatCurrency(totals.saldo)}
@@ -181,7 +181,7 @@ export default function TransactionsClient({ transactions: initialTransactions }
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl border border-border/60 p-4">
+      <div className="bg-card rounded-xl border border-border/60 p-4">
         <div className="flex items-center gap-2 mb-3">
           <Filter className="w-4 h-4 text-muted-foreground" />
           <span className="text-sm font-medium">Filtros</span>
@@ -255,7 +255,7 @@ export default function TransactionsClient({ transactions: initialTransactions }
       </div>
 
       {/* Transactions list */}
-      <div className="bg-white rounded-xl border border-border/60 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border/60 overflow-hidden">
         {filtered.length === 0 ? (
           <div className="py-16 flex flex-col items-center justify-center text-muted-foreground gap-3">
             <ArrowUpDown className="w-10 h-10 opacity-30" />
@@ -268,7 +268,7 @@ export default function TransactionsClient({ transactions: initialTransactions }
         ) : (
           <div className="divide-y divide-border/60">
             {filtered.map((t) => (
-              <div key={t.id} className="flex items-center justify-between px-4 py-3.5 hover:bg-gray-50/60 transition-colors">
+              <div key={t.id} className="flex items-center justify-between px-4 py-3.5 hover:bg-muted/40 transition-colors">
                 <div className="flex items-center gap-3 min-w-0">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
@@ -280,7 +280,7 @@ export default function TransactionsClient({ transactions: initialTransactions }
                     }
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-gray-800 truncate">{t.description}</p>
+                    <p className="text-sm font-medium text-foreground truncate">{t.description}</p>
                     <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                       <Badge
                         variant="outline"
@@ -308,7 +308,7 @@ export default function TransactionsClient({ transactions: initialTransactions }
                     </button>
                     <button
                       onClick={() => setDeletingId(t.id)}
-                      className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-red-50 transition-colors"
+                      className="p-1.5 rounded-lg text-muted-foreground hover:text-destructive hover:bg-red-500/10 transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>

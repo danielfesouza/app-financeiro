@@ -62,7 +62,7 @@ export default function DashboardClient({ transactions, month, year }: Props) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
           <p className="text-muted-foreground text-sm mt-0.5">
             {MONTHS[month - 1]} de {year}
           </p>
@@ -84,7 +84,7 @@ export default function DashboardClient({ transactions, month, year }: Props) {
                 <p className="text-sm text-muted-foreground mb-1">Receitas</p>
                 <p className="text-2xl font-bold text-green-600">{formatCurrency(receitas)}</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center">
                 <TrendingUp className="w-5 h-5 text-green-500" />
               </div>
             </div>
@@ -98,7 +98,7 @@ export default function DashboardClient({ transactions, month, year }: Props) {
                 <p className="text-sm text-muted-foreground mb-1">Despesas</p>
                 <p className="text-2xl font-bold text-red-500">{formatCurrency(despesas)}</p>
               </div>
-              <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
                 <TrendingDown className="w-5 h-5 text-red-500" />
               </div>
             </div>
@@ -114,7 +114,7 @@ export default function DashboardClient({ transactions, month, year }: Props) {
                   {formatCurrency(saldo)}
                 </p>
               </div>
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${saldo >= 0 ? 'bg-blue-50' : 'bg-red-50'}`}>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${saldo >= 0 ? 'bg-blue-500/10' : 'bg-red-500/10'}`}>
                 <Wallet className={`w-5 h-5 ${saldo >= 0 ? 'text-blue-500' : 'text-red-500'}`} />
               </div>
             </div>
@@ -156,10 +156,10 @@ export default function DashboardClient({ transactions, month, year }: Props) {
                   </Pie>
                   <Tooltip
                     formatter={(value) => [formatCurrency(Number(value ?? 0)), 'Valor']}
-                    contentStyle={{ borderRadius: '8px', border: '1px solid #e5e7eb', fontSize: '13px' }}
+                    contentStyle={{ borderRadius: '8px', border: '1px solid hsl(var(--border))', fontSize: '13px', backgroundColor: 'hsl(var(--card))', color: 'hsl(var(--card-foreground))' }}
                   />
                   <Legend
-                    formatter={(value) => <span className="text-xs text-gray-600">{value}</span>}
+                    formatter={(value) => <span className="text-xs text-muted-foreground">{value}</span>}
                   />
                 </PieChart>
               </ResponsiveContainer>
@@ -200,7 +200,7 @@ export default function DashboardClient({ transactions, month, year }: Props) {
                           style={{ backgroundColor: CATEGORY_COLORS[t.category] ?? '#6b7280' }}
                         />
                         <div className="min-w-0">
-                          <p className="text-sm font-medium text-gray-800 truncate">{t.description}</p>
+                          <p className="text-sm font-medium text-foreground truncate">{t.description}</p>
                           <div className="flex items-center gap-2 mt-0.5">
                             <Badge variant="outline" className="text-xs py-0 px-1.5 h-4 font-normal">
                               {t.category}

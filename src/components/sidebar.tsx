@@ -2,12 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { TrendingUp, LayoutDashboard, ArrowLeftRight, LogOut, Menu, X } from 'lucide-react'
+import { TrendingUp, LayoutDashboard, ArrowLeftRight, LogOut, Menu, X, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { useState } from 'react'
+import { useTheme } from 'next-themes'
 import type { User } from '@supabase/supabase-js'
 
 const navItems = [
@@ -19,6 +20,7 @@ export default function Sidebar({ user }: { user: User }) {
   const pathname = usePathname()
   const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { theme, setTheme } = useTheme()
 
   async function handleLogout() {
     const supabase = createClient()
@@ -70,6 +72,19 @@ export default function Sidebar({ user }: { user: User }) {
         <Button
           variant="ghost"
           size="sm"
+          className="w-full justify-start text-muted-foreground hover:text-foreground"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        >
+          {theme === 'dark' ? (
+            <Sun className="w-4 h-4 mr-2" />
+          ) : (
+            <Moon className="w-4 h-4 mr-2" />
+          )}
+          {theme === 'dark' ? 'Modo claro' : 'Modo escuro'}
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
           className="w-full justify-start text-muted-foreground hover:text-destructive"
           onClick={handleLogout}
         >
@@ -83,12 +98,12 @@ export default function Sidebar({ user }: { user: User }) {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-border/60 z-30">
+      <aside className="hidden lg:flex flex-col fixed left-0 top-0 bottom-0 w-64 bg-background border-r border-border/60 z-30">
         <SidebarContent />
       </aside>
 
       {/* Mobile top bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-white border-b border-border/60 h-14 flex items-center px-4 gap-3">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-40 bg-background border-b border-border/60 h-14 flex items-center px-4 gap-3">
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="p-1.5 rounded-lg hover:bg-accent transition-colors"
@@ -110,7 +125,7 @@ export default function Sidebar({ user }: { user: User }) {
             className="fixed inset-0 bg-black/30 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
           />
-          <aside className="relative w-64 bg-white h-full shadow-xl mt-14">
+          <aside className="relative w-64 bg-background h-full shadow-xl mt-14">
             <SidebarContent />
           </aside>
         </div>
